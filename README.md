@@ -1,4 +1,5 @@
-# SMU_HomeWork
-//SMU HOMEWORK Files
+# ELASTIC_SMU_DATA_CONCERT
+//Project files
 //TEST files
-//NOT FINISHED PROJECT FILEs
+//Some of the data
+//Some of PPT
