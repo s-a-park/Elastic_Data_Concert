@@ -1,4 +1,6 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=D5EAFF&height=300&section=header&fontSize=50&text=Elastic_SMU_Data_Concert&fontColor=00AE8A)
+![about-꾸미기 (1)](https://user-images.githubusercontent.com/101118558/187516541-24b7ff42-249f-47e5-a17f-373156adecc7.png)
+SNAH팀 이메일: jujusuah@naver.com
+
 
 
 
