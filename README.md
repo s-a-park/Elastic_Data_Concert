@@ -1,11 +1,4 @@
-# ELASTIC_SMU_DATA_CONCERT
-
-
-## SNAH
-* 팀장 : 박수아
-* 팀원 : 김나현
-
-## Project : JEJU WORKATION
+![header](https://capsule-render.vercel.app/api?type=waving&color=D5EAFF&height=300&section=header&fontSize=50&text=Elastic_SMU_Data_Concert&fontColor=00AE8A)
 
 
 
@@ -39,5 +32,5 @@
 
 
 
-*Please refer to the notice*
+
 
