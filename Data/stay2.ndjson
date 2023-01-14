@@ -357,3 +357,12 @@
 {"구분":"휴양콘도미니엄업","상호명":"ES제주리조트","소재지":"제주특별자치도 서귀포시 1100로 501","객실수":153,"연락처":"070-4548-0285","Stay_Date":"2022-08-11","Stay_Cost":122726,"Stay_Score":4.6,"Stay_Hotel":0,"Stay_Family":0,"Stay_Tradition":0,"Stay_Cheap":0,"Stay_Mini":0,"Stay_Condo":1,"Stay_Field":"서귀포시","Position":{"lat":33.2478074,"lon":126.4157795}}
 {"구분":"휴양콘도미니엄업","상호명":"씨사이드아덴","소재지":"제주특별자치도 서귀포시 중문관광로 124","객실수":190,"연락처":"064-738-9636","Stay_Date":"2022-08-11","Stay_Cost":182634,"Stay_Score":4.3,"Stay_Hotel":0,"Stay_Family":0,"Stay_Tradition":0,"Stay_Cheap":0,"Stay_Mini":0,"Stay_Condo":1,"Stay_Field":"서귀포시","Position":{"lat":33.28552678,"lon":126.5563426}}
 {"구분":"휴양콘도미니엄업","상호명":"백통신원리조트 기린","소재지":"제주특별자치도 서귀포시 남원읍 서성로 427-1","객실수":76,"연락처":"064-745-7077","Stay_Date":"2022-08-11","Stay_Cost":269439,"Stay_Score":3.1,"Stay_Hotel":0,"Stay_Family":0,"Stay_Tradition":0,"Stay_Cheap":0,"Stay_Mini":0,"Stay_Condo":1,"Stay_Field":"남원읍","Position":{"lat":33.28905971,"lon":126.4568373}}
+
+.
+.
+.
+숙소 데이터 입니다.
+
+데이터 분류를 위해 임의로 넣은 필드가 존재합니다.
+1박 가격은 랜덤으로 저희가 집어넣은 값 입니다.
+Kibana에서 지도 상 위치를 표현하기 위해 Position 필드에 경도와 위도 값을 넣었습니다. 
