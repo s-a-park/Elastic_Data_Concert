@@ -1912,3 +1912,10 @@
 {"Eatery_Name":"옵써빵집","Eatery_Addr":"제주특별자치도 서귀포시 표선면 표선동서로 240","Eatery_Score":0,"R_Eatery_Views":4,"Eatery_Field":"표선면","Date":"2022-08-11","Position":{"lat":33.3251759,"lon":126.8325861}}
 {"Eatery_Name":"바램목장&카페","Eatery_Addr":"제주특별자치도 서귀포시 안덕면 신화역사로 611","Eatery_Score":0,"R_Eatery_Views":5,"Eatery_Field":"안덕면","Date":"2022-08-11","Position":{"lat":33.3115492,"lon":126.3526353}}
 {"Eatery_Name":"중문정","Eatery_Addr":"제주특별자치도 서귀포시 상예로 226","Eatery_Score":0,"R_Eatery_Views":3,"Eatery_Field":"상예로","Date":"2022-08-11","Position":{"lat":33.2647699,"lon":126.3936516}}
+.
+.
+.
+.
+.
+음식점 데이터 입니다.
+kibana에서 지도 상 위치를 표시하기 위해 position 필드를 넣었습니다.
