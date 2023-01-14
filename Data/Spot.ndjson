@@ -1206,3 +1206,10 @@
 {"Spot_Name":"솔담한방병원","Spot_Addr":"제주특별자치도 제주시 1100로 3055","Spot_Score":0,"Spot_Views":814,"Spot_Time":"2022-08-11","Spot_Field":"1100로","Position":{"lat":33.4592031,"lon":126.4850328}}
 {"Spot_Name":"서귀포 하영올레","Spot_Addr":"제주특별자치도 서귀포시 중앙로 105","Spot_Score":0,"Spot_Views":1713,"Spot_Time":"2022-08-11","Spot_Field":"중앙로","Position":{"lat":33.2540922,"lon":126.5601945}}
 {"Spot_Name":"세화소품관","Spot_Addr":"제주특별자치도 제주시 구좌읍 해맞이해안로 1422-3","Spot_Score":0,"Spot_Views":30,"Spot_Time":"2022-08-11","Spot_Field":"구좌읍","Position":{"lat":33.5255845,"lon":126.8577029}}
+.
+.
+.
+.
+관광지 데이터 입니다.
+kibana에서 지도 상 위치를 표시하기 위해 position 추가하였습니다.
+데이터 분류를 위해 임의로 넣은 필드가 존재합니다.
