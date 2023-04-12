@@ -1,5 +1,5 @@
-####더욱 자세한 내용은 노션 포트폴리오에서 확인 할 수 있습니다
-####아래 이미지도 간단히 요약되어 있습니다
+#### 더욱 자세한 내용은 노션 포트폴리오에서 확인 할 수 있습니다
+#### 아래 이미지도 간단히 요약되어 있습니다
 ![about-꾸미기_23년도](https://user-images.githubusercontent.com/101118558/212492420-8d4076e0-6918-4c13-93ff-cbce9c2e3bd9.png)
 **SNAH팀 이메일:** jujusuah@naver.com <br>
 **데이터 콘서트 본선 개최 안내:** https://swai.smu.ac.kr/bbs/board.php?bo_table=07_01&wr_id=1402 <br>
