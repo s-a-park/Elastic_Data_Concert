@@ -5,9 +5,8 @@
 ![about-꾸미기_23년도](https://user-images.githubusercontent.com/101118558/212492420-8d4076e0-6918-4c13-93ff-cbce9c2e3bd9.png)
 
 
-**SNAH팀 발표 영상:** 
-<br></br>
-https://img.youtube.com/vi/G15w03oCv08/0.jpg)](https://www.youtube.com/watch?v=G15w03oCv08
+**SNAH팀 발표 영상:** <br>
+https://www.youtube.com/watch?v=G15w03oCv08
 
 
 **SNAH팀 이메일:** <br> jujusuah@naver.com <br> nh5363@naver.com <br>
