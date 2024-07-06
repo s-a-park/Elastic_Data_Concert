@@ -1,0 +1,163 @@
+/* width, height, padding, margin 등 정렬*/ 
+
+
+.li_word1, .li_word{padding-left: 25px;
+    padding-right: 10px;
+    margin-left: 20px;
+  
+    float: left;}
+
+   
+div.gojeju{
+       position: fixed;
+       right: 50%;
+       margin-right: -615px;
+       width: 162px;
+       height: 835px;
+       top:68px;
+       
+       
+   }
+.li_first{
+       
+        width: 300px;
+        height: 60px;
+        margin-bottom: -50px;
+    }
+#top{
+    width:100%;
+    height: 100px;
+    margin-left: 60px;
+}
+
+.nav_li{
+    margin-left: 280px;
+}
+
+.search{
+    margin-left: 160px;
+}
+
+html{position:relative;
+}    
+
+#add{width: 300px;}
+
+ul.nav{ width:100%;
+height: 100px;}
+
+body{
+    margin-top: 50px;
+
+margin-bottom: 50px;
+}
+
+.ifrm{width: 1100px;
+height: 500px;
+margin-left: 160px;
+margin-top: 20px;}
+
+span#left, #left2,#left4, #jejuword{
+   
+    z-index: 2;
+    position: relative;
+}
+
+#left3{
+    z-index: 3;
+    position: absolute;
+   
+}
+
+div#left{
+    margin-left: 260px;
+}
+
+div.frame{
+    width: 100%;
+    height: 700px;
+    margin-left: -10px;
+}
+
+a.nodeco{
+    width: 100%;
+    height: 600px;
+}
+
+.front{
+    z-index: 3;
+    position: absolute;
+    margin-left: 80px;
+    float: center;
+    margin-top: 300px;
+}
+
+.v1{
+   margin-top: 50px;
+   margin-left: 200px;
+   z-index: 2;
+}
+
+.opacity{
+    background-color: rgb(72, 70, 174);
+    opacity: 80%;
+   width: 100%;
+   height: 2550px;
+    z-index: 1;
+    position: absolute;
+    margin-left: -10px;
+}
+
+.sideframe{
+    position: relative;
+    z-index: 3;
+    width: 1000px;
+    height: 500px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 300px;
+}
+
+.word{
+    z-index: 3;
+    position: absolute;
+    float: center;
+    margin-right: 100px;
+}
+
+.word2{
+    z-index: 3;
+    position:relative;
+    float: left;
+    margin-top: 200px;
+
+}
+.v2{
+    z-index: 3;
+    margin-left: 350px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.v3{
+    z-index: 3;
+    margin-left: 200px;
+    margin-top: 50px;
+    position: relative;
+    
+}
+
+.kibana{
+    width: 100%;
+    height: 900px;
+    z-index: 3;
+    position: relative;
+    border-style: none;
+    margin-top: 500px;
+
+}
+
+.block{
+    width: 100%;
+    height: 50%;
+}

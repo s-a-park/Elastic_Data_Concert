@@ -1,0 +1,127 @@
+/* 꾸미기용 --컬러, 배경, 폰트 등*/
+ul{list-style: none;
+}
+
+.li_word1, .li_word {text-align: center;
+    font-size: 20px;
+    
+    }
+
+
+.li_first{color: rgb(45, 45, 145);
+    font-size: 35px;
+    font-family: 'Times New Roman';
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+.ifrm{
+   /* background-image: url("back.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+   */
+   border: 0px;
+   border-style: none;
+   
+    }
+
+a.nodeco{color: black;
+        text-decoration: none;
+        text-decoration-line: none;}
+
+a :hover{color: cornflowerblue ;}
+
+a:link{color: black;}
+
+a :visited{text-decoration: none;
+text-decoration-line: none;}
+
+#color{
+    color:deepskyblue;
+    font-size: 20px;
+}
+#color2{
+    color: deeppink;
+    font-size: 20px;
+}
+div.frame{
+   
+    position: relative;
+    z-index: 1;
+
+}
+
+.sideframe{
+    background-image: url("back.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    
+}
+
+.front{
+    font-size: 100px;
+    color: rgb(255, 255, 255);
+    font-family:'Franklin Gothic Medium';
+}
+
+.word, .word2{
+    font-size: 100px;
+    color: rgb(255, 255, 255);
+    font-family:'Franklin Gothic Medium';
+}
+
+#left{
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    font-family:'Gowun Batang', serif;
+}
+
+#left2{
+    font-size: 500px;
+    color: rgb(255, 255, 255);
+    font-family:'Franklin Gothic Medium';
+    margin-left: 80px;
+    text-shadow: 3px 3px 4px navy;
+}
+
+#left3{
+    font-size: 500px;
+    color: rgb(121, 123, 238);
+    font-family:'Franklin Gothic Medium';
+   margin-left: -1210px;
+   
+    text-shadow: 3px 3px 4px navy;
+}
+
+#left4{
+    font-size: 150px;
+    color: rgb(255, 255, 255);
+    font-family:'Franklin Gothic Medium';
+    margin-left: 80px;
+}
+
+@font-face {
+    font-family: "JejuHallasan";
+    src: url(../Elastic/ttf/JejuHallasan.ttf);
+}
+
+#jejuword{
+    font-size: 100px;
+    color: rgb(254, 255, 238);
+    font-family:"JejuHallasan";
+    margin-left: 150px;
+    
+   
+}
+
+#jejuword2{
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    font-family:"JejuHallasan";
+    z-index: 3;
+    position: relative;
+    margin-left: 500px;
+    
+}
