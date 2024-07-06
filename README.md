@@ -7,7 +7,7 @@
 
 **SNAH팀 발표 영상:** 
 <br></br>
-[![시연 영상](https://img.youtube.com/vi/G15w03oCv08/0.jpg)](https://www.youtube.com/watch?v=G15w03oCv08)
+https://img.youtube.com/vi/G15w03oCv08/0.jpg)](https://www.youtube.com/watch?v=G15w03oCv08
 
 
 **SNAH팀 이메일:** <br> jujusuah@naver.com <br> nh5363@naver.com <br>
