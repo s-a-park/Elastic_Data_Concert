@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="layout.css"/>
+        <link rel="stylesheet" type="text/css" href="pre.css"/>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+         <!--카카오맵 라이브러리-->
+ 
+</head>
+<body>
+    <nav>
+        <div id="top">
+             <ul class="nav">
+                <a href="main.html" class="nodeco"><li class="li_first">
+                   Workation in JEJU
+              </li></a>
+            <div class="nav_li">
+                <a href="about.html" class="nodeco"><li class="li_word1">About Us</li></a>
+    
+                <a href="job.html" class="nodeco"><li class="li_word">일자리 정보</li></a>
+
+                <a href="stay.html" class="nodeco"><li class="li_word">숙소 정보</li></a>
+    
+               <a href="kakao.html" class="nodeco"><li class="li_word">길찾기 with KakaoMap</li></a>
+    
+               <a href="cal.html" class="nodeco"><li class="li_word">비용 계산기</li></a>
+
+               <a href="info.html" class="nodeco"><li class="li_word">제주 정보 with Elastic</li></a>
+            </div>
+            </ul>
+    
+        </div>
+    
+     </nav>
+     <div id="left"><a href="https://map.kakao.com/link/to/제주공항,33.5101562,126.4861157" target="_blank"><button>길찾기 바로가기</button></a></div>
+    <div id="map" style="width:1000px; height:1000px; margin-left: 160px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a83d999372ccb212e481766eda39358a"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.5101562,126.4861157),  //제주공항 위도 경도가 지도 첫 화면(?)
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 9 // 지도의 확대 레벨
+    };
+
+
+
+// 지도에 교통정보를 표시하도록 지도타입을 추가합니다
+map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);  
+
+
+// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+
+var drawingFlag = false; // 원이 그려지고 있는 상태를 가지고 있을 변수입니다
+var centerPosition; // 원의 중심좌표 입니다
+var drawingCircle; // 그려지고 있는 원을 표시할 원 객체입니다
+var drawingLine; // 그려지고 있는 원의 반지름을 표시할 선 객체입니다
+var drawingOverlay; // 그려지고 있는 원의 반경을 표시할 커스텀오버레이 입니다
+var drawingDot; // 그려지고 있는 원의 중심점을 표시할 커스텀오버레이 입니다
+
+var circles = []; // 클릭으로 그려진 원과 반경 정보를 표시하는 선과 커스텀오버레이를 가지고 있을 배열입니다
+
+// 지도에 클릭 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+        
+    // 클릭 이벤트가 발생했을 때 원을 그리고 있는 상태가 아니면 중심좌표를 클릭한 지점으로 설정합니다
+    if (!drawingFlag) {    
+        
+        // 상태를 그리고있는 상태로 변경합니다
+        drawingFlag = true; 
+        
+        // 원이 그려질 중심좌표를 클릭한 위치로 설정합니다 
+        centerPosition = mouseEvent.latLng; 
+
+        // 그려지고 있는 원의 반경을 표시할 선 객체를 생성합니다
+        if (!drawingLine) {
+            drawingLine = new kakao.maps.Polyline({
+                strokeWeight: 3, // 선의 두께입니다
+                strokeColor: '#00a0e9', // 선의 색깔입니다
+                strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid' // 선의 스타일입니다
+            });    
+        }
+        
+        // 그려지고 있는 원을 표시할 원 객체를 생성합니다
+        if (!drawingCircle) {                    
+            drawingCircle = new kakao.maps.Circle({ 
+                strokeWeight: 1, // 선의 두께입니다
+                strokeColor: '#00a0e9', // 선의 색깔입니다
+                strokeOpacity: 0.1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid', // 선의 스타일입니다
+                fillColor: '#00a0e9', // 채우기 색깔입니다
+                fillOpacity: 0.2 // 채우기 불투명도입니다 
+            });     
+        }
+        
+        // 그려지고 있는 원의 반경 정보를 표시할 커스텀오버레이를 생성합니다
+        if (!drawingOverlay) {
+            drawingOverlay = new kakao.maps.CustomOverlay({
+                xAnchor: 0,
+                yAnchor: 0,
+                zIndex: 1
+            });              
+        }
+    }
+    });
+
+// 지도에 마우스무브 이벤트를 등록합니다
+// 원을 그리고있는 상태에서 마우스무브 이벤트가 발생하면 그려질 원의 위치와 반경정보를 동적으로 보여주도록 합니다
+kakao.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
+        
+    // 마우스무브 이벤트가 발생했을 때 원을 그리고있는 상태이면
+    if (drawingFlag) {
+
+        // 마우스 커서의 현재 위치를 얻어옵니다 
+        var mousePosition = mouseEvent.latLng; 
+        
+        // 그려지고 있는 선을 표시할 좌표 배열입니다. 클릭한 중심좌표와 마우스커서의 위치로 설정합니다
+        var linePath = [centerPosition, mousePosition];     
+        
+        // 그려지고 있는 선을 표시할 선 객체에 좌표 배열을 설정합니다
+        drawingLine.setPath(linePath);
+        
+        // 원의 반지름을 선 객체를 이용해서 얻어옵니다 
+        var length = drawingLine.getLength();
+        
+        if(length > 0) {
+            
+            // 그려지고 있는 원의 중심좌표와 반지름입니다
+            var circleOptions = { 
+                center : centerPosition, 
+            radius: length,                 
+            };
+            
+            // 그려지고 있는 원의 옵션을 설정합니다
+            drawingCircle.setOptions(circleOptions); 
+                
+            // 반경 정보를 표시할 커스텀오버레이의 내용입니다
+            var radius = Math.round(drawingCircle.getRadius()),   
+            content = '<div class="info">반경 <span class="number">' + radius + '</span>m</div>';
+            
+            // 반경 정보를 표시할 커스텀 오버레이의 좌표를 마우스커서 위치로 설정합니다
+            drawingOverlay.setPosition(mousePosition);
+            
+            // 반경 정보를 표시할 커스텀 오버레이의 표시할 내용을 설정합니다
+            drawingOverlay.setContent(content);
+            
+            // 그려지고 있는 원을 지도에 표시합니다
+            drawingCircle.setMap(map); 
+            
+            // 그려지고 있는 선을 지도에 표시합니다
+            drawingLine.setMap(map);  
+            
+            // 그려지고 있는 원의 반경정보 커스텀 오버레이를 지도에 표시합니다
+            drawingOverlay.setMap(map);
+            
+        } else { 
+            
+            drawingCircle.setMap(null);
+            drawingLine.setMap(null);    
+            drawingOverlay.setMap(null);
+            
+        }
+    }     
+});     
+
+// 지도에 마우스 오른쪽 클릭이벤트를 등록합니다
+// 원을 그리고있는 상태에서 마우스 오른쪽 클릭 이벤트가 발생하면
+// 마우스 오른쪽 클릭한 위치를 기준으로 원과 원의 반경정보를 표시하는 선과 커스텀 오버레이를 표시하고 그리기를 종료합니다
+kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
+
+    if (drawingFlag) {
+
+        // 마우스로 오른쪽 클릭한 위치입니다 
+        var rClickPosition = mouseEvent.latLng; 
+
+        // 원의 반경을 표시할 선 객체를 생성합니다
+        var polyline = new kakao.maps.Polyline({
+            path: [centerPosition, rClickPosition], // 선을 구성하는 좌표 배열입니다. 원의 중심좌표와 클릭한 위치로 설정합니다
+            strokeWeight: 3, // 선의 두께 입니다
+            strokeColor: '#00a0e9', // 선의 색깔입니다
+            strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid' // 선의 스타일입니다
+        });
+        
+        // 원 객체를 생성합니다
+        var circle = new kakao.maps.Circle({ 
+            center : centerPosition, // 원의 중심좌표입니다
+            radius: polyline.getLength(), // 원의 반지름입니다 m 단위 이며 선 객체를 이용해서 얻어옵니다
+            strokeWeight: 1, // 선의 두께입니다
+            strokeColor: '#00a0e9', // 선의 색깔입니다
+            strokeOpacity: 0.1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid', // 선의 스타일입니다
+            fillColor: '#00a0e9', // 채우기 색깔입니다
+            fillOpacity: 0.2  // 채우기 불투명도입니다 
+        });
+        
+        var radius = Math.round(circle.getRadius()), // 원의 반경 정보를 얻어옵니다
+            content = getTimeHTML(radius); // 커스텀 오버레이에 표시할 반경 정보입니다
+
+        
+        // 반경정보를 표시할 커스텀 오버레이를 생성합니다
+        var radiusOverlay = new kakao.maps.CustomOverlay({
+            content: content, // 표시할 내용입니다
+            position: rClickPosition, // 표시할 위치입니다. 클릭한 위치로 설정합니다
+            xAnchor: 0,
+            yAnchor: 0,
+            zIndex: 1 
+        });  
+
+        // 원을 지도에 표시합니다
+        circle.setMap(map); 
+        
+        // 선을 지도에 표시합니다
+        polyline.setMap(map);
+        
+        // 반경 정보 커스텀 오버레이를 지도에 표시합니다
+        radiusOverlay.setMap(map);
+        
+        // 배열에 담을 객체입니다. 원, 선, 커스텀오버레이 객체를 가지고 있습니다
+        var radiusObj = {
+            'polyline' : polyline,
+            'circle' : circle,
+            'overlay' : radiusOverlay
+        };
+        
+        // 배열에 추가합니다
+        // 이 배열을 이용해서 "모두 지우기" 버튼을 클릭했을 때 지도에 그려진 원, 선, 커스텀오버레이들을 지웁니다
+        circles.push(radiusObj);   
+    
+        // 그리기 상태를 그리고 있지 않는 상태로 바꿉니다
+        drawingFlag = false;
+        
+        // 중심 좌표를 초기화 합니다  
+        centerPosition = null;
+        
+        // 그려지고 있는 원, 선, 커스텀오버레이를 지도에서 제거합니다
+        drawingCircle.setMap(null);
+        drawingLine.setMap(null);   
+        drawingOverlay.setMap(null);
+    }
+});    
+    
+// 지도에 표시되어 있는 모든 원과 반경정보를 표시하는 선, 커스텀 오버레이를 지도에서 제거합니다
+function removeCircles() {         
+    for (var i = 0; i < circles.length; i++) {
+        circles[i].circle.setMap(null);    
+        circles[i].polyline.setMap(null);
+        circles[i].overlay.setMap(null);
+    }         
+    circles = [];
+}
+
+// 마우스 우클릭 하여 원 그리기가 종료됐을 때 호출하여 
+// 그려진 원의 반경 정보와 반경에 대한 도보, 자전거 시간을 계산하여
+// HTML Content를 만들어 리턴하는 함수입니다
+function getTimeHTML(distance) {
+
+    // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
+    var walkkTime = distance / 67 | 0;
+    var walkHour = '', walkMin = '';
+
+    // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
+    if (walkkTime > 60) {
+        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
+    }
+    walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
+
+    // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
+    var bycicleTime = distance / 227 | 0;
+    var bycicleHour = '', bycicleMin = '';
+
+    // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
+    if (bycicleTime > 60) {
+        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
+    }
+    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
+
+    // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
+    var content = '<ul class="info">';
+    content += '    <li>';
+    content += '        <span style="color:red; font-size:25px;" class="label">총거리</span><span class="number">' + distance + '</span>m';
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span style="color:red; font-size:25px;" class="label">도보</span>' + walkHour + walkMin;
+    content += '    </li>';
+    content += '    <li>';
+    content += '        <span style="color:red; font-size:25px;" class="label">자전거</span>' + bycicleHour + bycicleMin;
+    content += '    </li>';
+    content += '</ul>'
+
+    return content;
+}
+
+// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+// 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places(map); 
+
+// 카테고리로 은행을 검색합니다
+ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true}); 
+
+// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+function placesSearchCB (data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+        for (var i=0; i<data.length; i++) {
+            displayMarker(data[i]);    
+        }       
+    }
+}
+
+// 지도에 마커를 표시하는 함수입니다
+function displayMarker(place) {
+    // 마커를 생성하고 지도에 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(place.y, place.x) 
+    });
+
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'click', function() {
+        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+        infowindow.open(map, marker);
+    });
+}
+
+var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
+var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+var position = new kakao.maps.LatLng(33.450701, 126.570667);
+
+// 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+    roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+});
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
+map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW); //지도 위에 로드뷰 도로 올리기
+
+var rvContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+var rv = new kakao.maps.Roadview(rvContainer); //로드뷰 객체
+var rvClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+toggleRoadview(mapCenter);
+
+// 마커 이미지를 생성합니다.
+var markImage = new kakao.maps.MarkerImage(
+    'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png',
+    new kakao.maps.Size(26, 46),
+    {
+        // 스프라이트 이미지를 사용합니다.
+        // 스프라이트 이미지 전체의 크기를 지정하고
+        spriteSize: new kakao.maps.Size(1666, 168),
+        // 사용하고 싶은 영역의 좌상단 좌표를 입력합니다.
+        // background-position으로 지정하는 값이며 부호는 반대입니다.
+        spriteOrigin: new kakao.maps.Point(705, 114),
+        offset: new kakao.maps.Point(13, 46)
+    }
+);
+
+// 드래그가 가능한 마커를 생성합니다.
+var rvMarker = new kakao.maps.Marker({
+    image : markImage,
+    position: mapCenter,
+    draggable: true,
+    map: map
+});
+
+//마커에 dragend 이벤트를 할당합니다
+kakao.maps.event.addListener(rvMarker, 'dragend', function(mouseEvent) {
+    var position = rvMarker.getPosition(); //현재 마커가 놓인 자리의 좌표
+    toggleRoadview(position); //로드뷰를 토글합니다
+});
+
+//지도에 클릭 이벤트를 할당합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent){
+    
+    // 현재 클릭한 부분의 좌표를 리턴 
+    var position = mouseEvent.latLng; 
+
+    rvMarker.setPosition(position);
+    toggleRoadview(position); //로드뷰를 토글합니다
+});
+
+//로드뷰 toggle함수
+function toggleRoadview(position){
+
+    //전달받은 좌표(position)에 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄웁니다
+    rvClient.getNearestPanoId(position, 50, function(panoId) {
+        if (panoId === null) {
+            rvContainer.style.display = 'none'; //로드뷰를 넣은 컨테이너를 숨깁니다
+            mapWrapper.style.width = '100%';
+            map.relayout();
+        } else {
+            mapWrapper.style.width = '50%';
+            map.relayout(); //지도를 감싸고 있는 영역이 변경됨에 따라, 지도를 재배열합니다
+            rvContainer.style.display = 'block'; //로드뷰를 넣은 컨테이너를 보이게합니다
+            rv.setPanoId(panoId, position); //panoId를 통한 로드뷰 실행
+            rv.relayout(); //로드뷰를 감싸고 있는 영역이 변경됨에 따라, 로드뷰를 재배열합니다
+        }
+    });
+}
+
+
+ 
+	</script>
+    
+</body>
+</html>
